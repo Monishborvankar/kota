@@ -5,101 +5,188 @@ import TextField from '@mui/material/TextField';
 // import axios from "axios";\
 import Imgup from './Imgup.js'
 import "../CSS/addroom.css";
+import { storage } from './firebase';
+import { dataref } from './firebase'
 
-import {
-  ref,
-  uploadBytes,
-  getDownloadURL,
-  listAll,
-  list,
-} from "firebase/storage";
-import { storage } from "./firebase";
-import { v4 } from "uuid";
+// import {
+//   ref,
+//   uploadBytes,
+//   getDownloadURL,
+//   listAll,
+//   list,
+// } from "firebase/storage";
+// import { storage } from "./firebase";
+// import { v4 } from "uuid";
+
 
 
  function Addroom() {
-  const [user, setUser]= useState({
-    nama: "",
-    loca: "",
-    adr: "",
-    bhk : "",
-    rent: "",
-    dis: "",
-  });
-  const [imageUpload, setImageUpload] = useState(null);
-  const [imageUrls, setImageUrls] = useState([]);
+  const [nama,SetNama] = useState('')
+  const [loca, SetLoca,] = useState('')
+  const [adr,SetAdr] = useState('')
+  const [bhk,SetBhk] = useState('')
+  const [rent,SetRent] = useState('')
+  const [dis,SetDis] = useState('')
+  const [image ,setImage] = useState('');
+  const [image2 ,setImage2] = useState('');
+  const [image3 ,setImage3] = useState('');
+  const [image4 ,setImage4] = useState('');
+  const [Url , setUrl] = useState('');
+  const [Url2 , setUrl2] = useState('');
+  const [Url3 , setUrl3] = useState('');
+  const [Url4 , setUrl4] = useState('');
+  const [selectedImage, setSelectedImage] = useState(Url)
+  const [allImag, setAllImg] = useState([Url, Url2, Url3, Url4])
+  // const [user, setUser]= useState({
+  //   nama: "",
+  //   loca: "",
+  //   adr: "",
+  //   bhk : "",
+  //   rent: "",
+  //   dis: "",
+  //   url:"",
+  // });
+//   const [imageUpload, setImageUpload] = useState(null);
+//   const [imageUrls, setImageUrls] = useState([]);
 
-  const imagesListRef = ref(storage, "images/");
-  const uploadFile = () => {
-    if (imageUpload == null) return;
-    const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
-    uploadBytes(imageRef, imageUpload).then((snapshot) => {
-      // getDownloadURL(snapshot.ref).then((url) => {
-      //   setImageUrls((prev) => [...prev, url]);
-      alert("sjwb");
-      })
-    // });
-  };
+//   const imagesListRef = ref(storage, "images/");
+//   const uploadFile = () => {
+//     if (imageUpload == null) return;
+//     const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
+//     uploadBytes(imageRef, imageUpload).then((snapshot) => {
+//       // getDownloadURL(snapshot.ref).then((url) => {
+//       //   setImageUrls((prev) => [...prev, url]);
+//       alert("Image is uploaded");
+// //       storage.ref('images').child(imageUpload.name).getdownloadurl()
+// //       .then((url) =>{
+// //         setImageUrls(url);
+// // })
+//     })
+      
+//     // });
+//   };
 
-  useEffect(() => {
-    listAll(imagesListRef).then((response) => {
-      response.items.forEach((item) => {
-        getDownloadURL(item).then((url) => {
-          setImageUrls((prev) => [...prev, url]);
-        });
-      });
-    });
-  }, []);
+//   useEffect(() => {
+//     listAll(imagesListRef).then((response) => {
+//       response.items.forEach((item) => {
+//         getDownloadURL(item).then((url) => {
+//           // postData.ref("users").push().set({
+//           //   url : url,
+//           // }).catch(alert);
+//           setImageUrls((prev) => [...prev, url]);
+//         });
+//       });
+//     });
+//   }, []);
+
 
   
-let name, value ;
-  const getUserData = (event) =>{
-    name= event.target.name
-    value= event.target.value
+// let name, value ;
+//   const getUserData = (event) =>{
+//     name= event.target.name
+//     value= event.target.value
 
-    setUser({...user,[name]: value});
-  };
-  const postData = async (e) =>{
-    e.preventDefault();
-    const { nama,  loca, adr,  bhk, rent,  dis,} = user;
-   const res = await fetch(
-    "https://kota-35cec-default-rtdb.firebaseio.com/addrooms.json",
-    { 
-      method:"POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(
-        {
-          nama,
-          loca,
-          adr,
-          bhk,
-          rent,
-          dis,
-        }
-      )
-    });
-    if(res){
-      setUser({
-        nama: "",
-        loca: "",
-        adr: "",
-        bhk : "",
-        rent: "",
-        dis: "",
-      });
-      alert("Room Info Added!");
-    }
-  };
+//     setUser({...user,[name]: value});
+//   };
+//   const postData = async (e) =>{
+//     e.preventDefault();
+//     const { nama,  loca, adr,  bhk, rent,  dis, url,} = user;
+//    const res = await fetch(
+//     "https://kota-35cec-default-rtdb.firebaseio.com/addrooms.json",
+//     { 
+//       method:"POST",
+//       headers: {
+//         "Content-Type": "application/json"
+//       },
+//       body: JSON.stringify(
+//         {
+//           nama,
+//           loca,
+//           adr,
+//           bhk,
+//           rent,
+//           dis,
+//           url,
+//         }
+//       )
+//     });
+//     if(res){
+//       setUser({
+//         nama: "",
+//         loca: "",
+//         adr: "",
+//         bhk : "",
+//         rent: "",
+//         dis: "",
+//         url:"",
+//       });
+//       alert("Room Info Added!");
+//     }
+//   };
+const upload = () =>{
+  if(image == null)
+  return;
+  setUrl("gettingg urls...")
+    // first image
+    storage.ref('/images/'+image.name).put(image)
+  // .on("state_changed", alert("success"), alert , () => {
+
+  storage.ref("images").child(image.name).getDownloadURL()
+  .then((url) =>{
+    // seconnd image
+    storage.ref('/images/'+image2.name).put(image2)
+  // .on("state_changed", alert("success"), alert , () => {
+
+  storage.ref("images").child(image2.name).getDownloadURL()
+  .then((url2) =>{
+    
+   //third image
+   storage.ref('/images/'+image3.name).put(image3)
+  //  .on("state_changed", alert("success"), alert , () => {
+
+   storage.ref("images").child(image3.name).getDownloadURL()
+   .then((url3) =>{
+
+    //forth image
+    storage.ref('/images/'+image4.name).put(image4)
+   .on("state_changed", alert("Data is uploaded successfuly"), alert , () => {
+
+   storage.ref("images").child(image4.name).getDownloadURL()
+   .then((url4) =>{
+
+    dataref.ref("addrooms").push().set({
+      nama: nama,
+      loca: loca,
+      adr: adr,
+      bhk : bhk,
+      rent : rent,
+      dis : dis,
+      url : url,
+      url2: url2,
+      url3 : url3,
+      url4 : url4,
+    }).catch(alert);
+
+    setUrl(url);
+    setUrl2(url2);
+    setUrl3(url3);
+    setUrl4(url4);
+  })
+// })
+})
+// })
+});
+  // });
+})
+});
+}
 
   return (
     <React.Fragment>
       <div style={{ textAlign: "center" }}>
         <h3 style={{ textAlign: "center", padding: "40px" }}>Room Information</h3>
       </div>
-      <form >
-        <form method="POST">
+      =
 
         {/* <form onSubmit={(e)=>submit(e)}> */}
         <div style={{ textAlign: "center" }}>
@@ -118,8 +205,8 @@ let name, value ;
                 id="nmae"
                 label="Name"
                 defaultValue=""
-                value={user.nama}
-                onChange={getUserData}
+                value={nama}
+                onChange={(e) => {SetNama(e.target.value)}}
                 required
               />
               <TextField
@@ -127,8 +214,8 @@ let name, value ;
                 id="loc"
                 label="Location"
                 defaultValue=""
-                value={user.loca}
-                onChange={getUserData}
+                value={loca}
+                onChange={(e) => {SetLoca(e.target.value)}}
                 required
               />
               <TextField
@@ -136,8 +223,8 @@ let name, value ;
                 id="add"
                 label="Address"
                 defaultValue=""
-                value={user.adr}
-                onChange={getUserData}
+                value={adr}
+                onChange={(e) => {SetAdr(e.target.value)}}
                 required
               />
               <TextField
@@ -145,8 +232,8 @@ let name, value ;
                 id="bhk"
                 label="BHK"
                 defaultValue=""
-                value={user.bhk}
-                onChange={getUserData}
+                value={bhk}
+                onChange={(e) => {SetBhk(e.target.value)}}
                 required
               />
               <TextField
@@ -154,8 +241,8 @@ let name, value ;
                 id="rentt"
                 label="Rent"
                 defaultValue=""
-                value={user.rent}
-                onChange={getUserData}
+                value={rent}
+                onChange={(e) => {SetRent(e.target.value)}}
                 required
 
               />
@@ -164,16 +251,35 @@ let name, value ;
                 id="Des"
                 label="Descreption"
                 defaultValue=""
-                value={user.dis}
-                onChange={getUserData}
+                value={dis}
+                onChange={(e) => {SetDis(e.target.value)}}
                 required
               />
             </div>
 
           </Box>
-         
+          <input type="file" onChange={(e) => {setImage2(e.target.files[0])
+    }}></input>
+    <br/>
+    <br/>
+    <input type="file" onChange={(e) => {setImage(e.target.files[0])
+    }}></input>
+    <br/>
+    <br/>
+    <input type="file" onChange={(e) => {setImage3(e.target.files[0])
+    }}></input>
+    <br/>
+    <br/>
+     <input type="file" onChange={(e) => {setImage4(e.target.files[0])
+    }}></input>
+    <br/>
+    <br/>
+      {/* <button onClick={upload}> Upload Image</button>
+      <br></br>
+      <p> <a herf={imageUrls}> {imageUrls}</a></p> */}
         </div>
-      
+        <br/>
+        <br/>
 
         <div style={{ display: "flex", alignItems: "center", margin: "auto", paddingLeft: "50%" }}>
           {/* <Button type="submit"
@@ -183,7 +289,7 @@ let name, value ;
             }}>
             submit
           </Button> */}
-          <button class="button-21" role="button" onClick={postData} style={{ display: "flex", alignItems: "center",
+          <button class="button-21" role="button" onClick={upload} style={{ display: "flex", alignItems: "center",
               justifyContent: "center", backgroundColor: "#87d5fc"
             }}>
             Add Room
@@ -202,11 +308,10 @@ let name, value ;
       })}
       </div> */}
       
-      </form>
-      </form>
-      <div>
+    
+      {/* <div>
       <Imgup/>
-      </div>
+      </div> */}
     </React.Fragment>
   );
   

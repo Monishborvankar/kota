@@ -14,7 +14,7 @@ import {postData} from "./Addroom"
 function Imgup() {
   const [imageUpload, setImageUpload] = useState(null);
   const [imageUrls, setImageUrls] = useState([]);
-
+  const [user] = useState([]);
   const imagesListRef = ref(storage, "images/");
   const uploadFile = () => {
     if (imageUpload == null) return;
@@ -48,7 +48,12 @@ function Imgup() {
   return (
     <div className="App">
       <input
-        type="file"
+       name='url'
+       id="Url"
+       label="URL"
+       defaultValue=""
+       value={user.imageUrls}
+       type="file"
         onChange={(event) => {
           setImageUpload(event.target.files[0]);
         }}

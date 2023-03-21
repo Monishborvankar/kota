@@ -43,6 +43,13 @@ body {
 .container {
   position: relative;
   display: none;
+  
+}
+.contai {
+  width: 400px;
+  height: 240px;
+  
+  
 }
 
 /* Expanding image text */
@@ -63,3 +70,4 @@ body {
   font-size: 35px;
   cursor: pointer;
 }
+

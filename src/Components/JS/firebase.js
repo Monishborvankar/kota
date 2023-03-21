@@ -1,5 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getStorage } from "firebase/storage";
+import firebase from "firebase/compat/app";
+import 'firebase/compat/storage';
+import  "firebase/compat/database";
 const firebaseConfig = {
   apiKey: "AIzaSyDOOSrbvdpV91A3D7rNyetjG1jyfUzBMNI",
   authDomain: "kota-35cec.firebaseapp.com",
@@ -12,5 +15,6 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-export const storage = getStorage(app);
+firebase.initializeApp(firebaseConfig);
+    export const dataref = firebase.database();
+    export const storage = firebase.storage();
