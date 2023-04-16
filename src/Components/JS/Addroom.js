@@ -1,12 +1,15 @@
 import React, { useState,  useEffect } from 'react';
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
+// import TextField from '@mui/material/TextField';
+import { Button, Card, CardContent, TextField, Typography } from '@mui/material';
 // import Button from '@mui/material/Button';
 // import axios from "axios";\
 import Imgup from './Imgup.js'
 import "../CSS/addroom.css";
 import { storage } from './firebase';
 import { dataref } from './firebase'
+import { auth } from './firebase';
+import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 
 // import {
 //   ref,
@@ -37,92 +40,7 @@ import { dataref } from './firebase'
   const [Url4 , setUrl4] = useState('');
   const [selectedImage, setSelectedImage] = useState(Url)
   const [allImag, setAllImg] = useState([Url, Url2, Url3, Url4])
-  // const [user, setUser]= useState({
-  //   nama: "",
-  //   loca: "",
-  //   adr: "",
-  //   bhk : "",
-  //   rent: "",
-  //   dis: "",
-  //   url:"",
-  // });
-//   const [imageUpload, setImageUpload] = useState(null);
-//   const [imageUrls, setImageUrls] = useState([]);
-
-//   const imagesListRef = ref(storage, "images/");
-//   const uploadFile = () => {
-//     if (imageUpload == null) return;
-//     const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
-//     uploadBytes(imageRef, imageUpload).then((snapshot) => {
-//       // getDownloadURL(snapshot.ref).then((url) => {
-//       //   setImageUrls((prev) => [...prev, url]);
-//       alert("Image is uploaded");
-// //       storage.ref('images').child(imageUpload.name).getdownloadurl()
-// //       .then((url) =>{
-// //         setImageUrls(url);
-// // })
-//     })
-      
-//     // });
-//   };
-
-//   useEffect(() => {
-//     listAll(imagesListRef).then((response) => {
-//       response.items.forEach((item) => {
-//         getDownloadURL(item).then((url) => {
-//           // postData.ref("users").push().set({
-//           //   url : url,
-//           // }).catch(alert);
-//           setImageUrls((prev) => [...prev, url]);
-//         });
-//       });
-//     });
-//   }, []);
-
-
   
-// let name, value ;
-//   const getUserData = (event) =>{
-//     name= event.target.name
-//     value= event.target.value
-
-//     setUser({...user,[name]: value});
-//   };
-//   const postData = async (e) =>{
-//     e.preventDefault();
-//     const { nama,  loca, adr,  bhk, rent,  dis, url,} = user;
-//    const res = await fetch(
-//     "https://kota-35cec-default-rtdb.firebaseio.com/addrooms.json",
-//     { 
-//       method:"POST",
-//       headers: {
-//         "Content-Type": "application/json"
-//       },
-//       body: JSON.stringify(
-//         {
-//           nama,
-//           loca,
-//           adr,
-//           bhk,
-//           rent,
-//           dis,
-//           url,
-//         }
-//       )
-//     });
-//     if(res){
-//       setUser({
-//         nama: "",
-//         loca: "",
-//         adr: "",
-//         bhk : "",
-//         rent: "",
-//         dis: "",
-//         url:"",
-//       });
-//       alert("Room Info Added!");
-//     }
-//   };
 const upload = () =>{
   if(image == null)
   return;
@@ -181,12 +99,69 @@ const upload = () =>{
 });
 }
 
+
+// const App = () => {
+
+  const [phone, setPhone] = useState('+91');
+  // const [hasFilled, setHasFilled] = useState(false);
+  const [otp, setOtp] = useState('');
+
+  const generateRecaptcha = () => {
+    window.recaptchaVerifier = new RecaptchaVerifier('recaptcha', {
+      'size': 'invisible',
+      'callback': (response) => {
+        // reCAPTCHA solved, allow signInWithPhoneNumber.
+        // ...
+      }
+    }, auth);
+  }
+
+  const handleSend = (event) => {
+    event.preventDefault();
+    // setHasFilled(true);
+    generateRecaptcha();
+    let appVerifier = window.recaptchaVerifier;
+    signInWithPhoneNumber(auth, phone, appVerifier)
+      .then((confirmationResult) => {
+        // SMS sent. Prompt user to type the code from the message, then sign the
+        // user in with confirmationResult.confirm(code).
+        window.confirmationResult = confirmationResult;
+      }).catch((error) => {
+        // Error; SMS not sent
+        console.log(error);
+      });
+  }
+  
+  const verifyOtp = (event) => {
+    let otp = event.target.value;
+    setOtp(otp);
+
+    if (otp.length === 6) {
+      // verifu otp
+      let confirmationResult = window.confirmationResult;
+      confirmationResult.confirm(otp).then((result) => {
+        // User signed in successfully.
+        let user = result.user;
+        console.log(user);
+        alert('User signed in successfully');
+        // ...
+      }).catch((error) => {
+        // User couldn't sign in (bad verification code?)
+        // ...
+        alert('User couldn\'t sign in (bad verification code?)');
+      });
+    }
+  }
+
+// }
+
+
   return (
     <React.Fragment>
       <div style={{ textAlign: "center" }}>
         <h3 style={{ textAlign: "center", padding: "40px" }}>Room Information</h3>
       </div>
-      =
+      
 
         {/* <form onSubmit={(e)=>submit(e)}> */}
         <div style={{ textAlign: "center" }}>
@@ -204,7 +179,7 @@ const upload = () =>{
                 name='nama'
                 id="nmae"
                 label="Name"
-                defaultValue=""
+                
                 value={nama}
                 onChange={(e) => {SetNama(e.target.value)}}
                 required
@@ -213,7 +188,7 @@ const upload = () =>{
                 name='loca'
                 id="loc"
                 label="Location"
-                defaultValue=""
+                
                 value={loca}
                 onChange={(e) => {SetLoca(e.target.value)}}
                 required
@@ -222,7 +197,7 @@ const upload = () =>{
                 name='adr'
                 id="add"
                 label="Address"
-                defaultValue=""
+                
                 value={adr}
                 onChange={(e) => {SetAdr(e.target.value)}}
                 required
@@ -231,7 +206,7 @@ const upload = () =>{
                 name='bhk'
                 id="bhk"
                 label="BHK"
-                defaultValue=""
+                
                 value={bhk}
                 onChange={(e) => {SetBhk(e.target.value)}}
                 required
@@ -240,7 +215,7 @@ const upload = () =>{
                 name='rent'
                 id="rentt"
                 label="Rent"
-                defaultValue=""
+                
                 value={rent}
                 onChange={(e) => {SetRent(e.target.value)}}
                 required
@@ -250,7 +225,7 @@ const upload = () =>{
                 name='dis'
                 id="Des"
                 label="Descreption"
-                defaultValue=""
+                
                 value={dis}
                 onChange={(e) => {SetDis(e.target.value)}}
                 required
@@ -258,30 +233,57 @@ const upload = () =>{
             </div>
 
           </Box>
+          <br/>
+          <Typography sx={{ padding: '5px'}} variant='h5' component='div'>Upload Room Images</Typography>
+          <br/>
           <input type="file" onChange={(e) => {setImage2(e.target.files[0])
     }}></input>
-    <br/>
-    <br/>
+   
     <input type="file" onChange={(e) => {setImage(e.target.files[0])
     }}></input>
-    <br/>
-    <br/>
+   
     <input type="file" onChange={(e) => {setImage3(e.target.files[0])
     }}></input>
-    <br/>
-    <br/>
+
      <input type="file" onChange={(e) => {setImage4(e.target.files[0])
     }}></input>
-    <br/>
-    <br/>
+   
       {/* <button onClick={upload}> Upload Image</button>
       <br></br>
       <p> <a herf={imageUrls}> {imageUrls}</a></p> */}
+
+
+      
+      <div className='app__container' >
+        <Card >
+          <CardContent sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
+            <Typography sx={{ padding: '5px'}} variant='h5' component='div'>Enter your phone number</Typography>
+            <form onSubmit={handleSend}>
+              <TextField sx={{ width: '100%'}} variant='outlined' autoComplete='off' label='Phone Number' value={phone} onChange={(event) => setPhone(event.target.value)} />
+              <Button type='submit' variant='contained' sx={{ width: '240px', marginTop: '20px'}}>Send Code</Button>
+            </form>
+          </CardContent>
+        </Card>
+        <div id="recaptcha"></div>
+        
+        <Card>
+          <CardContent sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
+            <Typography  variant='h5' component='div'>Enter the OTP</Typography>
+              <TextField sx={{ width: '31%'}} variant='outlined' label='OTP ' value={otp} onChange={verifyOtp} />
+          </CardContent>
+        </Card>
+        <div id="recaptcha"></div>
+      
+      </div>
+
+
+
+
         </div>
         <br/>
         <br/>
-
-        <div style={{ display: "flex", alignItems: "center", margin: "auto", paddingLeft: "50%" }}>
+        
+        <div style={{ display: "flex", alignItems: "center", margin: "auto", paddingLeft: "47%" }}>
           {/* <Button type="submit"
             style={{
               display: "flex", alignItems: "center",
@@ -289,12 +291,14 @@ const upload = () =>{
             }}>
             submit
           </Button> */}
-          <button class="button-21" role="button" onClick={upload} style={{ display: "flex", alignItems: "center",
+          <button className="button-21" role="button" onClick={upload} style={{ display: "flex", alignItems: "center",
               justifyContent: "center", backgroundColor: "#87d5fc"
             }}>
             Add Room
           </button>
         </div>
+        <br/>
+        <br/>
         {/* <div className="imgg">
         <input
         type="file"

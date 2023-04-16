@@ -107,7 +107,7 @@
         /* background: rgb(10, 10, 65); */
         /* background:#fcaa59 ; */
         /* background: #3e1e3cf4; */
-        background: #87e3ff;
+        background: #f0805d;
         /* background: #fc59fc; */
         left: 0;
         width: 100%;
@@ -179,3 +179,30 @@
     
     }
   
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+            color: rgb(255, 255, 255);
+      font-size: 18px;
+      text-decoration: none;
+      margin: 15px;
+      font-weight: bold;
+      position: relative;
+      transition: 0.45s;
+      opacity: 0.9;
+    }
+    
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      padding: 12px 16px;
+      z-index: 1;
+    }
+    
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }

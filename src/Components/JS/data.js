@@ -9,6 +9,8 @@ const data = [
         Image: i4,
         name: "Rent",
         class:"flip-left",
+        
+        
     },
     {
         iId: 5,

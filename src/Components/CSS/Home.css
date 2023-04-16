@@ -154,7 +154,7 @@ background: linear-gradient(to bottom right, #F4CEAB, #F4A91B); */
 
   .custom-shape-divider-bottom-1671626083 {
     position: absolute;
-    bottom: 0;
+    bottom: 0px;
     left: 0;
     width: 100%;
     overflow: hidden;

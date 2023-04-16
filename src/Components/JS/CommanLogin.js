@@ -24,12 +24,12 @@ function CommanLogin() {
         <div className="borders" data-aos="fade-left"></div>
         <div id='Contact' style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center' }}>
           <form>
-            <div class="mb-3">
+            <div className="mb-3">
               <label for="exampleInputEmail1" className="form-label" style={{ display: "flex", textAlign: "center", gap: "10px" }} ><h5>Phone Number</h5><BsFillTelephonePlusFill /></label>
               <input type="number" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" style={{ height: "46px" }} placeholder="Enter Your Phone" required />
               <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
             </div>
-            <div class="mb-3">
+            <div className="mb-3">
               <label for="exampleInputEmail1" className="form-label" style={{ display: "flex", textAlign: "center", gap: "10px" }} ><h5>Password</h5><RiLockPasswordFill /></label>
               <input type="password" className="form-control" id="exampleInputPassword1" style={{ height: "46px" }} placeholder="Enter Your Password" required />
             </div>

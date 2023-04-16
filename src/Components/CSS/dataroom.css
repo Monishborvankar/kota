@@ -6,7 +6,7 @@
   body {
       margin: 0;
       padding: 0;
-
+      
   }
   html {
     font-family: 'Questrial', sans-serif;
@@ -15,11 +15,13 @@
 
   div.main {
     height: 100vh;
+    width: 213vh;
     display: flex;
     align-items: center;
     justify-content: center;
     background: rgb(255,0,147);
-    background: linear-gradient(126deg, rgba(255,0,147,1) 0%, rgba(255,93,0,1) 97%);
+      background: linear-gradient(126deg, rgba(255,0,147,1) 0%, rgba(255,93,0,1) 97%);
+  
   }
   div.container {
     background-color: white;
@@ -36,7 +38,17 @@
   height: 240px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.45);
   }
-
+  div.serach{
+    padding-left: 45%;
+    padding-top: 50px;
+    width: 100px;
+    height: 50px;
+    
+  }
+  div.sort{
+    padding-left: 45%;
+    padding-top: 10px;
+  }
   h1 {
     font-weight: 600;
     font-size: 36px;
@@ -52,7 +64,13 @@
     line-height: 24px;
     margin: 0 0 30px 0;
   }
-  
+  div.carsol{
+    width: 500px;
+    height: 500px;
+    padding-top: 2%;
+  }
+
+
   div.imag {
     height: 300px;
     width: 50%;
@@ -61,9 +79,10 @@
     background-size: cover;
   }
   div.text-container {
-    margin: 60px 45px 55px;
-    justify-content: center;
-    padding-left: 10%;
+    
+    justify-content: left;
+    
+   
   }
   @media screen and (min-width: 768px) {
     div.container {
@@ -76,16 +95,19 @@
       min-width: 360px;
     }
    div.text-container {
-      margin: 0 60px;
+      margin: 0 70px;
       max-width: 660px;
     }
   }
   @media screen and (min-width: 1024px) {
     div.container {
-      max-width: 1200px;
+      max-width: 1000px;
     }
   }
  
+
+
+
 
 .button-21 {
   align-items: center;
@@ -132,4 +154,37 @@
 #bab{
   background: rgb(255,0,147);
   background: linear-gradient(126deg, rgba(255,0,147,1) 0%, rgba(255,93,0,1) 97%);
+}
+
+
+
+
+
+.custom-shape-divider-top-1680415537 {
+  position: absolute;
+  top: 230px;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.custom-shape-divider-top-1680415537 svg {
+  position: relative;
+  display: block;
+  width: calc(175% + 1.3px);
+  height: 221px;
+}
+
+.custom-shape-divider-top-1680415537 .shape-fill {
+  fill: #FFFFFF;
+}
+
+.locat{
+  padding-left: 62%;
+  width: 50px;
+  height: 50px;
+}
+.lokat{
+  padding-left: 110%;
 }

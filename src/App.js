@@ -10,37 +10,51 @@ import Notification from './Components/JS/Notification'
 import ProfileService from './Components/JS/ProfileService'
 import ProfileUser from './Components/JS/ProfileUser'
 import Addroom from './Components/JS/Addroom'
+import Allroom from './Components/JS/Allroom'
+import Addpg from './Components/JS/Addpg'
+import Addhr from './Components/JS/Addhr'
 
-import {Switch,Route} from 'react-router-dom'
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import axios from 'axios'
-import { RealtimeData } from './RealtimeData/View';
+import  Homi  from './RealtimeData/View';
+import  Pgdata  from './RealtimeData/Pgdata';
+import  Hrdata  from './RealtimeData/Hrdata';
+import  Pay from './Payg/Payg';
+import  Search  from './RealtimeData/Search';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Rebu from './Components/Rentbuy/Rebu'
 axios.defaults.withCredentials = true;
 
 function App() {
   
   return (
+    
     <div>
       
-      <Navbar/>
-      <Switch>
-        
-     <Route exact path="/"><Home/></Route> 
-     <Route exact path="/SimpleUser"><SimpleUser/></Route>
-     <Route exact path="/Admin"><Admin/></Route>
-     <Route exact path="/CommanLogin"><CommanLogin/></Route>
-     <Route exact path="/ProfileService"><ProfileService/></Route>
-     <Route exact path="/ProfileUser"><ProfileUser/></Route>
-     <Route exact path="/Addroom"><Addroom/></Route>
-     <Route exact path="./RealtimeData/View"><View/></Route>
-     <Route><RealtimeData/></Route>
-     <Route exact path="/Notification"><Notification/></Route>
-  
+      <Navbar />
+      <ToastContainer position="top-center"/>
+      <Routes>
+      
+     <Route exact path="/" element={<Home />} />
+     <Route path="/SimpleUser" element={<SimpleUser />} />
+     <Route path="/Admin" element={<Admin />} />
      
-      </Switch>
+     <Route path="/Addroom" Component={Addroom} />
+     <Route path="/Allroom" Component={Allroom} />
+     <Route path="/Addpg" Component={Addpg} />
+     <Route path="/Addhr" Component={Addhr} />
+     <Route path="/Pgdata" Component={Pgdata} />
+     <Route path="/Homi" Component={Homi} />
+     <Route path="/Hrdata" Component={Hrdata} />
+     <Route path="/search" Component={Search}/>
+     <Route path="/Rebu" Component={Rebu}/>
+     <Route path="/Pay" Component={Pay} />
+    </Routes>
+      
     </div>
+   
     
   );
   

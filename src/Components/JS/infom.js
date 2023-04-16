@@ -34,7 +34,7 @@ export default function Infoma() {
     </svg>
 </div>
 <div id="tsest">
-<h1>Testimonials</h1>
+<h1>Feedback's</h1>
 </div>
 <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
         <SwiperSlide>

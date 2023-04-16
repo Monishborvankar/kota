@@ -67,10 +67,10 @@ ul{
 	line-height: 40px;
 	border-radius: 50%;
 	color: #000;
-	transition: all 0.5s ease;
+	
 }
 .footer-col .social-links a:hover{
-	color: #000;
+	color: #ffffff;
 	background-color: #000;
 }
 
@@ -90,7 +90,7 @@ ul{
 
 .custom-shape-divider-top-1671702837 {
     position: absolute;
-    top: 3900px;
+    top: 3400px;
     left: 0;
     width: 100%;
     overflow: hidden;

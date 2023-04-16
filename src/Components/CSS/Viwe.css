@@ -51,7 +51,16 @@ body {
   
   
 }
-
+.inputfield{
+  align-items: center;
+  width: 250px;
+  border-radius: 25px;
+}
+::placeholder {
+  padding-left: 10px;
+  color: rgb(0, 0, 0);
+  opacity: 1; /* Firefox */
+}
 /* Expanding image text */
 #imgtext {
   position: absolute;

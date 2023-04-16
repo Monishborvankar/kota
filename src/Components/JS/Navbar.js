@@ -31,7 +31,20 @@ const Navbar = () => {
                 <Link to="Service" onClick={() => setIsOpen(!isOpen)} style={{color:"white"}}>Service </Link>
                 {/* <Link to="Notable" onClick={() => setIsOpen(!isOpen)}>Notable </Link> */}
                 <Link to="Contact" onClick={() => setIsOpen(!isOpen)} style={{color:"white"}}>Contact </Link>
-                <NavLink to="/Addroom" onClick={() => setIsOpen(!isOpen)}>Addroom</NavLink>
+                {/* <div class="dropdown">
+                
+                <li to="Contact"  style={{color:"white"}}> Add 
+                    <ul className="dropdown-content">
+                    <li><NavLink to="/Addroom" onClick={() => setIsOpen(!isOpen)}>Addroom</NavLink></li>
+                    
+                    <li><NavLink to="/Contact" onClick={() => setIsOpen(!isOpen)}>Addroom</NavLink></li>
+                    
+                    <li><NavLink to="/Home" onClick={() => setIsOpen(!isOpen)}>Addroom</NavLink></li>
+                    </ul>
+                    </li>
+                </div> */}
+
+                <NavLink to="/Allroom" onClick={() => setIsOpen(!isOpen)}>Addroom</NavLink>
                 {/* <NavLink to="/Resume" onClick={() => setIsOpen(!isOpen)}>Resume</NavLink> */}
                 {/* <NavLink to="/Addcourse" onClick={() => setIsOpen(!isOpen)}>Addcourse</NavLink> */}
                 <NavLink to="/SimpleUser" onClick={() => setIsOpen(!isOpen)}>SignUp</NavLink>
